@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      SERVER: db
+      USER: root
+      PASS: root
+      DATABASE_NAME: dbattendance
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbattendance
+    volumes:
+      - ./attendancemonitoring/dbattendance.sql:/docker-entrypoint-initdb.d/dbattendance.sql
+    ports:
+      - "3306:3306"
