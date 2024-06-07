@@ -37,6 +37,29 @@
               </tr>
             </xsl:for-each>
           </table>
+          <xsl:for-each select="testsuite">
+            <h3>Nested Test Suite: <xsl:value-of select="@name"/></h3>
+            <table>
+              <tr>
+                <th>Test Case</th>
+                <th>Class</th>
+                <th>File</th>
+                <th>Line</th>
+                <th>Assertions</th>
+                <th>Time</th>
+              </tr>
+              <xsl:for-each select="testcase">
+                <tr>
+                  <td><xsl:value-of select="@name"/></td>
+                  <td><xsl:value-of select="@classname"/></td>
+                  <td><xsl:value-of select="@file"/></td>
+                  <td><xsl:value-of select="@line"/></td>
+                  <td><xsl:value-of select="@assertions"/></td>
+                  <td><xsl:value-of select="@time"/></td>
+                </tr>
+              </xsl:for-each>
+            </table>
+          </xsl:for-each>
         </xsl:for-each>
       </body>
     </html>
