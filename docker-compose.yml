@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   php:
-    build: .
+    image: stage.acoba.com/web-service:latest
+    container_name: web-service-container
     ports:
       - "80:80"
     environment:
@@ -12,9 +13,12 @@ services:
       DATABASE_NAME: dbattendance
     depends_on:
       - db
+    networks:
+      - jarvisNetwork
 
   db:
     image: mariadb:10.6
+    container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dbattendance
@@ -22,3 +26,10 @@ services:
       - ./attendancemonitoring/dbattendance.sql:/docker-entrypoint-initdb.d/dbattendance.sql
     ports:
       - "3306:3306"
+    networks:
+      - jarvisNetwork
+
+networks:
+  jarvisNetwork:
+    driver: bridge
+    name: jarvisNetwork
